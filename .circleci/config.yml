@@ -44,3 +44,14 @@ workflows:
     jobs:
       - build
       - deploy
+      - deploy:
+        requires:
+        - build
+      - deploy_to_prod:
+        type: approval
+        requires:
+          - build
+          - deploy
+      - deploy_production:
+        requires:
+          - deploy_to_prod
